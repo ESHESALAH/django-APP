@@ -8,7 +8,7 @@ class KioskOwner(models.Model):
         ("m", "male"),
         ("f", "female")
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     gender = models.CharField(max_length=6, choices=GENDERS)
     phone_number = models.IntegerField()
     date_of_birth = models.DateField()
@@ -20,13 +20,15 @@ class KioskOwner(models.Model):
 
 
 class Kiosk(models.Model):
-    owner = models.ForeignKey(KioskOwner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(KioskOwner, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=28)
     date_opened = models.DateField()
     street_address = models.CharField(max_length=100)
     currency = models.CharField(max_length=8)
     phone_number = models.IntegerField()
     business_type = models.CharField(max_length=28)
+    
+
 
     def __str__(self):
         return self.name

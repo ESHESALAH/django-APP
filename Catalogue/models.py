@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class productsupplier(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+class Productsupplier(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
 
     email=models.EmailField()
 
@@ -22,12 +22,11 @@ class productsupplier(models.Model):
     profile_picture=models.ImageField()
     
     def __str__(self):
-        return self.user.get_street_address()
+        return self.street_address
 
 
-
-class productcategory(models.Model):
-    name = models.CharField(max_length=4)
+class Productcategory(models.Model):
+    name = models.CharField(max_length=20)
     description = models.TextField()
     Icon = models.ImageField()   
     
@@ -35,10 +34,10 @@ class productcategory(models.Model):
         return self.name
 
 
-class product(models.Model):
-    title = models.CharField(max_length=5)
+class Product(models.Model):
+    title = models.CharField(max_length=20)
   
-    category = models.ForeignKey(productcategory,on_delete=models.CASCADE)
+    category = models.ForeignKey(Productcategory,on_delete=models.CASCADE)
 
     description = models.TextField()
 
@@ -46,14 +45,16 @@ class product(models.Model):
 
     selling_price = models.DecimalField(max_digits=50, decimal_places=2)
 
-    supplier = models.ForeignKey(productsupplier,on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Productsupplier,on_delete=models.CASCADE)
 
-    #Kiosk = models.ForeignKey(Kiosk,on_delete=models.CASCADE)
+    #kiosk = models.ForeignKey(Kiosk,on_delete=models.CASCADE)
 
     number_in_stock = models.IntegerField()
+    product_image = models.ImageField(upload_to='gallery/')
+
      
     def __str__(self):
-        return self.Kiosk
+        return self.title
 
 
 
